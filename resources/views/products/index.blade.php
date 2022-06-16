@@ -4,7 +4,7 @@
 
 @section('mainContent')
     
-    <main>
+    <section>
         <div class="container">
             <h1>Prodotto</h1>
 
@@ -33,8 +33,14 @@
                             <td>{{$prodotto->sale_date}}</td>
 
                             <td><a href="{{route('products.show', $prodotto)}}" class="btn btn-info">Visualizza</a></td>
-                            <td><a href="{{route('products.show', $prodotto)}}" class="btn btn-warning">Modifica</a></td>
-                            <td><a href="{{route('products.show', $prodotto)}}" class="btn btn-danger">Cancella</a></td>
+                            <td><a href="{{route('products.edit', $prodotto)}}" class="btn btn-warning">Modifica</a></td>
+                            <td>
+                                <form action="{{route('products.destroy', $prodotto)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Cancella</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -42,6 +48,6 @@
 
 
         </div>
-    </main>
+    </section>
 
 @endsection

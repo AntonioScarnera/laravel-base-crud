@@ -36,7 +36,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $newProduct = new Product();
+        $newProduct = Product::create($data);
+        return redirect()->route('products.show', $newProduct->$id);
     }
 
     /**
@@ -47,7 +50,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-       // $prodotto = Product::findOrFail($id);
         return view('products.show',compact('product'));
     }
 
@@ -57,9 +59,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -80,8 +82,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('products.index');
     }
 }
